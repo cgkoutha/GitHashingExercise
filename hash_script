@@ -1,0 +1,22 @@
+#!/bin/bash
+
+# Check if an argument is provided
+if [ -z "$1" ]; then
+    echo "Usage: $0 <4-digit integer>"
+    exit 1
+fi
+
+# Validate that the argument is a 4-digit integer
+if ! [[ "$1" =~ ^[0-9]{4}$ ]]; then
+    echo "Error: Please provide a valid 4-digit integer."
+    exit 1
+fi
+
+# Calculate the hash (using SHA-256 in this example)
+hashed_value=$(echo -n "$1" | sha256sum | awk '{print $1}')
+
+# Output the hash
+echo "Hashed value: $hashed_value"
+
+# Save the hash to a file
+echo "$hashed_value" > hash_output.txt
